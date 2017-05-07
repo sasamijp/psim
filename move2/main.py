@@ -19,8 +19,8 @@ field = field.Field(
     [  # tanks
         tank_control.TankControl(tank.Tank(500.0, 900.0, 10.0, 20.0, 0)),
         tank_control.TankControl(tank.Tank(500.0, 200.0, 10.0, 20.0, 0)),
-        tank_control.TankControl(tank.Tank(70.0, 500.0, 10.0, 20.0, 0)),
-        tank_control.TankControl(tank.Tank(870.0, 500.0, 10.0, 20.0, 0))
+        tank_control.TankControl(tank.Tank(90.0, 500.0, 10.0, 20.0, 0)),
+        tank_control.TankControl(tank.Tank(850.0, 500.0, 10.0, 20.0, 0))
     ],
     [  # objects
         segments.Segments([(300, 450), (800, 450), (800, 700), (300, 700)]),

@@ -28,7 +28,7 @@ class Tank:
 
         self.bullet = None
 
-        self.view_angle_size = np.pi / 1.5
+        self.view_angle_size = np.pi / 1.2
         self.view_angle_theta = 0
 
     def update(self, d_tire_r, d_tire_l):
@@ -78,6 +78,17 @@ class Tank:
 
         ])
 
+    def get_sight_line_all(self):
+        N = 40
+        L = 500
+        self.P = []
+
+        for n in range(1, N):
+            theta = n * self.view_angle_size / N
+            self.P.append(self.coor + util.rotate(np.array([400, 0]), theta+self.view_angle_theta))
+
+        return self.P
+
     def draw(self, pygame, screen):
         self.segs.draw(pygame, screen)
         pygame.draw.line(screen, [0, 0, 0], (self.coor[0], self.coor[1]),
@@ -87,6 +98,10 @@ class Tank:
         l = 100
         x = self.coor[0]
         y = self.coor[1]
+
+        for p in self.P:
+            pygame.draw.line(screen, [255, 0, 0], self.coor, p, 1)
+            pygame.draw.circle(screen, [0, 0, 255], (int(p[0]), int(p[1])), 3, 2)
 
         # pygame.draw.line(screen, [255, 0, 0],
         #                  (x, y),

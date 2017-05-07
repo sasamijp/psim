@@ -7,6 +7,8 @@ class TankControl:
 
     def update(self):
         state = self.tank.get_state_all()
-        self.tank.update(random.choice(state)/100.0, random.choice(state)/100.0)
+        self.tank.update(random.choice(state)/100.0 + 0.1, random.choice(state)/100.0 + 0.1)
         self.tank.rotate_turret(random.choice(state)/10000.0)
-        self.tank.shot()
+        self.tank.rotate_view(random.choice(state)/10000.0)
+        if random.random() < 0.1:
+            self.tank.shot()

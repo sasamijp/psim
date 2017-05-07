@@ -17,9 +17,27 @@ class Field:
         self.update_bullets()
         self.update_tanks()
 
+        for i, t in enumerate(self.tank_controls):
+            start_p, points = t.tank.coor, t.tank.get_sight_line_all()
+
+            for j, p in enumerate(points):
+                for l in self.all_lines:
+                    cross = util.cross_point(start_p, p, l[0], l[1])
+                    if cross is not None:
+                        if np.linalg.norm(cross - start_p) < np.linalg.norm(self.tank_controls[i].tank.P[j] - start_p):
+                            self.tank_controls[i].tank.P[j] = cross
+
+                for k, tt in enumerate(self.tank_controls):
+                    if i == k:
+                        continue
+                    for tt_l in tt.tank.segs.get_lines():
+                        cross = util.cross_point(start_p, p, tt_l[0], tt_l[1])
+                        if cross is not None:
+                            if np.linalg.norm(cross - start_p) < np.linalg.norm(self.tank_controls[i].tank.P[j] - start_p):
+                                self.tank_controls[i].tank.P[j] = cross
+
     def update_bullets(self):
         deletes = []
-
         for i, b in enumerate(self.bullets):
             if self.__is_out_of_stage(b):
                 deletes.append(i)
@@ -62,7 +80,6 @@ class Field:
 
         for d_i in reversed(deletes):
             del self.tank_controls[d_i]
-
 
     def is_hit(self, tank, bullet):
         for l in tank.segs.get_lines():

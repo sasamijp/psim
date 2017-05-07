@@ -58,3 +58,27 @@ def min_distance2d2(l_start, l_end, p):  # 2darray
 
     f1 = a * (y1 - y0) - b * (x1 - x0)
     return (f1 * f1) / r2
+
+
+def cross_point(l1_s, l1_e, l2_s, l2_e):
+    L1x = l1_s[0]
+    L1y = l1_s[1]
+    L2x = l1_e[0]
+    L2y = l1_e[1]
+    L3x = l2_s[0]
+    L3y = l2_s[1]
+    L4x = l2_e[0]
+    L4y = l2_e[1]
+
+    ksi = (L4y - L3y) * (L4x - L1x) - (L4x - L3x) * (L4y - L1y)
+    eta = (L2x - L1x) * (L4y - L1y) - (L2y - L1y) * (L4x - L1x)
+    delta = (L2x - L1x) * (L4y - L3y) - (L2y - L1y) * (L4x - L3x)
+
+    ramda = ksi / delta
+    mu = eta / delta
+
+    if (ramda >= 0 and ramda <= 1) and (mu >= 0 and mu <= 1):
+        CrossPx = L1x + ramda * (L2x - L1x)
+        CrossPy = L1y + ramda * (L2y - L1y)
+        return np.array([CrossPx, CrossPy])
+    return None
